@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { UserForm } from '../components/Form/Form';
-import { Contacts } from '../components/Contacts/Contacts';
-import { Filter } from '../components/Filter/Filter';
-import { PhonebookWrapper} from '../components/Form/Form.styled';
+import { UserForm } from '../Form/Form';
+import { Contacts } from '../Contacts/Contacts';
+import { Filter } from '../Filter/Filter';
+import { PhonebookWrapper} from '../Form/Form.styled';
 
 class App extends Component {
 
