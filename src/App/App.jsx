@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { UserForm } from './Form/Form';
-import { Contacts } from './Contacts/Contacts';
-import { Filter } from './Filter/Filter';
-import { PhonebookWrapper } from './Form/Form.styled';
+import { UserForm } from '../components/Form/Form';
+import { Contacts } from '../components/Contacts/Contacts';
+import { Filter } from '../components/Filter/Filter';
+import { PhonebookWrapper} from '../components/Form/Form.styled';
 
 class App extends Component {
 
@@ -17,10 +17,12 @@ class App extends Component {
   };
 
   addContact = data =>{
+    const {contacts} = this.state;
     console.log(data);
-    if (data.name) {
+    if (contacts.find(contact => contact.name === data.name)){
       return alert(`${data.name} is already in contacts.`);
     }
+    
 
     this.setState(prevState => ({
       contacts: [...prevState.contacts, data],

@@ -1,6 +1,15 @@
-const Filter = ({ value, label, filterChange }) => {
+import PropTypes from 'prop-types';
+import { FilterInput } from "components/Form/Form.styled";
+
+const Filter = ({ value, filterChange }) => {
   return (
-      <input type="text" value={value} onChange={filterChange} />
+      <FilterInput type="text" value={value} onChange={filterChange} />
   );
+};
+
+
+Filter.propTypes = {
+  value: PropTypes.string.isRequired,
+  filterChange: PropTypes.func.isRequired,
 };
 export { Filter };
