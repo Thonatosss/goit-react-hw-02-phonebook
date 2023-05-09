@@ -1,43 +1,50 @@
+import { nanoid } from 'nanoid';
 import React, { Component } from 'react';
+import { Formik, Form, Field } from 'formik';
 
-class Form extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+const intitialValues = {
+  name: '',
+  number: '',
+};
 
-  getUserInfo = event =>{
-    const {name, value, number} = event.currentTarget;
-    console.log(name);
-    this.setState({[name]: value})
-  }
-  handleSumbit = event => {
-    event.preventDefault();
-    this.props.getData(this.state);
+class UserForm extends Component {
+  
+  handleFormSubmit = (values, {resetForm}) => {
+    const id = nanoid();
+    const data = {...values, id}
+    this.props.getData(data)
+    resetForm();  
   };
   render() {
     return (
-      <form onSubmit={this.handleSumbit}>
-        <label htmlFor={this.userNameId}>
-          Name
-          <input name='name' type="text" id={this.userNameId} onChange={this.getUserInfo} />
-        </label>
+      <Formik onSubmit={this.handleFormSubmit} initialValues={intitialValues}>
+        <Form>
+          <label>
+            Name
+            <Field
+              type="text"
+              name="name"
+              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+            />
+          </label>
 
-        <label htmlFor={this.userNumberId}>
-          Number
-          <input
-            type="tel"
-            name="number"
-            id={this.userNameId}
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-        </label>
-        <button type="submit">Add contact</button>
-      </form>
+          <label>
+            Number
+            <Field
+              type="tel"
+              name="number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              required
+            />
+          </label>
+          <button type="submit">Add contact</button>
+        </Form>
+      </Formik>
     );
   }
 }
 
-export { Form };
+export { UserForm };
